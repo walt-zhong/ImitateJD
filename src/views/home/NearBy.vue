@@ -1,139 +1,21 @@
 <template>
   <div class="nearby">
     <h3 class="nearby__title">附近店铺</h3>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
+    <div class="nearby__item"
+    v-for="item in nearByList"
+    :key="item.id">
+      <img class="nearby__item__img" :src="item.imgurl"/>
       <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
+        <div class="nearby__content__title">{{ item.title }}</div>
         <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
+          <span
+          class="nearby__content__tag"
+          v-for="(innerItem,index) in item.tags"
+          :key="index"
+          >{{ innerItem }}</span>
         </div>
         <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
-        </p>
-      </div>
-    </div>
-    <div class="nearby__item">
-      <img
-        class="nearby__item__img"
-        src="http://www.dell-lee.com/imgs/vue3/near.png"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">沃尔玛</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-          <span class="nearby__content__tag">月售1万+</span>
-        </div>
-        <p class="nearby__content__highlight">
-          VIP尊享满89元减4元运费卷(每月3张)
+          {{ item.desc }}
         </p>
       </div>
     </div>
@@ -142,7 +24,24 @@
 
 <script>
 export default {
-  name: 'NearBy'
+  name: 'NearBy',
+  setup () {
+    const nearByList = [{
+      id: 1,
+      title: '沃尔玛',
+      imgurl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+      tags: ['起送', '运费', '基础运费5￥'],
+      desc: 'VIP尊享满89元减4元运费卷(每月3张)'
+    },
+    {
+      id: 2,
+      title: '京东',
+      imgurl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+      tags: ['起送', '运费', '基础运费5￥'],
+      desc: 'VIP尊享满89元减4元运费卷(每月6张)'
+    }]
+    return { nearByList }
+  }
 }
 </script>
 
