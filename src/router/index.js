@@ -10,7 +10,20 @@ const routes = [
   }, {
     path: '/login',
     name: 'LoginPage',
-    component: LoginPage
+    component: LoginPage,
+    // 如果已经登录了，再访问login，不允许访问
+    beforeEnter(to,from,next){
+      console.log(to,from);
+      // const isLogin = localStorage.isLogin;
+      // if(isLogin){
+      //   next({name: 'HomePage'})
+      // }else{
+      //   next();
+      // }
+
+      const {isLogin} = localStorage;
+      isLogin ? next({name: 'HomePage'}) : next();
+    }
   }
   // {
   //   path: '/about',
@@ -25,6 +38,20 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+// 每次路由跳转都会执行这个方法
+router.beforeEach((to,from,next)=>{
+  // const isLogin = localStorage.isLogin;
+  // console.log(to,from);
+  // if(isLogin || to.name === 'LoginPage'){
+  //   next();
+  // }else{
+  //   next({name: 'LoginPage'})
+  // }
+
+  const {isLogin} = localStorage;
+  (isLogin || to.name === 'LoginPage') ? next() : next({name: 'LoginPage'})
 })
 
 export default router
