@@ -12,7 +12,7 @@
   <div class="banner">
     <img
       class="banner__img"
-      src="http://www.dell-lee.com/imgs/vue3/banner.jpg"
+      :src="`../src/img/banner.jpg`"
     />
   </div>
   <div class="icons">
@@ -22,7 +22,7 @@
     :key="item.desc"
     >
       <img
-        :src="`http://www.dell-lee.com/imgs/vue3/${item.imgName}.png`"
+        :src="`../src/img/${item.imgName}.png`"
         class="icons__item__img"
       />
       <p class="icons__item__desc">{{ item.desc }}</p>
