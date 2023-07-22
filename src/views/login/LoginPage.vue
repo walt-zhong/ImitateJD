@@ -9,41 +9,52 @@
         </div>
         <div class="wrapper__login-button" @click="handleLogin">登录</div>
         <div class="wrapper__login-link" @click="handleRegisterClick">立即注册</div>
-
+        <Toast v-if="data.showToast" :message="data.toastMessage" />
     </div>
 </template>
 
 <script>
-import {useRouter} from 'vue-router'
-import  {post} from '../../utils/request'
+import {useRouter} from 'vue-router';
+import  {post} from '../../utils/request';
 import { reactive } from 'vue';
+import Toast from '../../components/Toast.vue';
 export default {
   name: 'LoginPage',
+  components:{Toast},
   setup(){
     const data = reactive({
         username:'',
-        password:''
+        password:'',
+        showToast:false,
+        toastMessage:''
     });
 
     const router = useRouter();
+    const showToast = (message)=>{
+        data.showToast = true
+           data.toastMessage = "登录失败"
+           setTimeout(()=>{
+            data.showToast = false;
+            data.toastMessage = message;
+        },2000);
+    }
     const handleLogin = async ()=>{
       try{
         const result = await post('/api/user/login',{
             username:data.username,
             password:data.password
-
         });
 
         if(result?.errcode === '0'){
             localStorage.isLogin = true;
             router.push({name:'HomePage'});
         }else {
-            alert("登录失败");
+         showToast('登录失败');
         }
 
         console.log(result);  
       }catch(e){
-        alert("请求失败");
+       showToast('请求失败');
      } 
     } 
 
