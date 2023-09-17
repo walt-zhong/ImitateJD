@@ -56,6 +56,7 @@ const useLoginEffect = (showToast)=>{
     }
 }
 
+// 处理注册跳转
 const useRegisterEffect = ()=>{
     const router = useRouter();
     const handleRegisterClick = ()=>{
