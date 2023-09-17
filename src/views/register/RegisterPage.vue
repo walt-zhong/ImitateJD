@@ -41,7 +41,7 @@ const useRegisterEffect = (showToast)=>{
 
         console.log("login res: " ,result);
 
-        if(result?.errcode === '0'){
+        if(result?.errno === '0'){
             localStorage.isLogin = true;
             router.push({name:'LoginPage'});
         }else {

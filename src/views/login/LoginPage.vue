@@ -28,14 +28,14 @@ const useLoginEffect = (showToast)=>{
     });
     const handleLogin = async ()=>{
       try{
-        const result = await post('/api/user/login111',{
+        const result = await post('/api/user/login',{
             username:data.username,
             password:data.password
         });
 
         console.log("login res: " ,result);
 
-        if(result?.errcode === '0'){
+        if(result?.errno === 0){
             localStorage.isLogin = true;
             router.push({name:'HomePage'});
         }else {
