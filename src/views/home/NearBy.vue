@@ -1,27 +1,10 @@
 <template>
   <div class="nearby">
     <h3 class="nearby__title">附近店铺</h3>
-    <div class="nearby__item"
-    v-for="item in nearByList"
-    :key="item._id">
-      <img class="nearby__item__img" :src="item.imgUrl"/>
-      <div class="nearby__content">
-        <div class="nearby__content__title">{{ item.name }}</div>
-        <div class="nearby__content__tags">
-          <span class="nearby__content__tag">月售: {{ item.sales }}</span>
-          <span class="nearby__content__tag">起送: {{ item.expressLimit }}</span>
-          <span class="nearby__content__tag">基础运费: {{ item.expressPrice }}</span>
-          <!-- <span
-          class="nearby__content__tag"
-          v-for="(innerItem,index) in item.tags"
-          :key="index"
-          >{{ innerItem }}</span> -->
-        </div>
-        <p class="nearby__content__highlight">
-          {{ item.slogan }}
-        </p>
-      </div>
-    </div>
+    <ShopInfo 
+    v-for="item in nearByList" 
+    :key="item._id"
+    :item="item"/>
   </div>
 </template>
 
@@ -29,6 +12,7 @@
 
 import {ref} from 'vue';
 import {get} from '../../utils/request';
+import ShopInfo from '../../components/ShopInfo.vue'
 const useNearbyListEffect =()=>{
   const nearByList = ref([]);
     const getNearByList = async ()=>{
@@ -44,6 +28,7 @@ const useNearbyListEffect =()=>{
 }
 export default {
   name: 'NearBy',
+  components: { ShopInfo },
   setup () {
     const{nearByList,getNearByList} = useNearbyListEffect();
     getNearByList();
@@ -60,47 +45,6 @@ export default {
     font-size: 0.18rem;
     color: $content-font-color;
     font-weight: normal;
-  }
-
-  &__item {
-    display: flex;
-    padding-top: 0.12rem;
-
-    &__img {
-      width: 0.56rem;
-      height: 0.56rem;
-    }
-  }
-
-  &__content {
-    padding-bottom: 0.12rem;
-    border-bottom: 1px solid $content-font-color;
-    margin-left: 0.16rem;
-    flex: 1;
-
-    &__title {
-      line-height: 0.22rem;
-      font-size: 0.16rem;
-      color: $content-font-color;
-    }
-
-    &__tags {
-      margin-top: 0.08rem;
-      line-height: 0.18rem;
-      font-size: 0.13rem;
-      color: $content-font-color;
-    }
-
-    &__tag {
-      margin-right: 0.16rem;
-    }
-
-    &__highlight {
-      margin: 0.08rem 0 0 0;
-      line-height: 0.18rem;
-      font-size: 0.13rem;
-      color: #e93b3b;
-    }
   }
 }
 </style>

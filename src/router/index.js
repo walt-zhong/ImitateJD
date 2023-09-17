@@ -1,17 +1,23 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomePage from '../views/home/HomePage.vue'
-import LoginPage from '../views/login/LoginPage.vue'
-import RegisterPage from '../views/register/RegisterPage.vue'
+// import HomePage from '../views/home/HomePage.vue'
+// import ShopPage from '../views/shop/ShopPage.vue'
+// import RegisterPage from '../views/register/RegisterPage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'HomePage',
-    component: HomePage
+    component: () => import(/* webpackChunkName: "home" */ '../views/home/HomePage.vue')
   }, {
+    path: '/shop',
+    name: 'ShopPage',
+    component: () => import(/* webpackChunkName: "shop" */ '../views/shop/ShopPage.vue')
+  }
+, {
     path: '/login',
     name: 'LoginPage',
-    component: LoginPage,
+    // component: LoginPage,
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/LoginPage.vue'),
     // 如果已经登录了，再访问login，不允许访问
     beforeEnter(to,from,next){
       console.log(to,from);
@@ -29,7 +35,7 @@ const routes = [
   {
     path: '/register',
     name: 'RegisterPage',
-    component: RegisterPage,
+    component: () => import(/* webpackChunkName: "register" */ '../views/register/RegisterPage.vue'),
     // 如果已经登录了，再访问login，不允许访问
     beforeEnter(to,from,next){
       console.log(to,from);
